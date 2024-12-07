@@ -7,21 +7,30 @@
 
 import SwiftUI
 
+struct User: Identifiable {
+    var id = UUID()
+    var name = "Drake"
+}
+
 struct ContentView: View {
+    @State private var selectedUser: User? = nil
+    @State private var showSheet: Bool = false
+    
     var body: some View {
-        NavigationSplitView(preferredCompactColumn: .constant(.detail)) {
-            NavigationLink("Primary") {
-                Text("New view")
-            }
-            
-            NavigationLink("Manik") {
-                Text("Lakhanpal")
-            }
-        } detail: {
-            Text("Content")
-                .navigationTitle("Content View")
+        Button("Tap me") {
+            selectedUser = User()
         }
-        .navigationSplitViewStyle(.balanced)
+        .sheet(item: $selectedUser) { user in
+            VStack {
+                Button(user.name) {
+                    showSheet.toggle()
+                }
+            }
+            .presentationDetents([.medium, .large])
+        }
+        .alert("Welcome", isPresented: $showSheet, presenting: selectedUser) { user in
+            Button(user.name) {}
+        }
     }
 }
 
