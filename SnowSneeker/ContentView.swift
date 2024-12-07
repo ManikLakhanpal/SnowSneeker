@@ -12,25 +12,34 @@ struct User: Identifiable {
     var name = "Drake"
 }
 
+struct GroupView: View {
+    var body: some View {
+        Group {
+            Text("Manik Lakhanpal")
+            Text("Chandigarh")
+            Text("19")
+        }
+        .font(.largeTitle)
+    }
+}
+
 struct ContentView: View {
     @State private var selectedUser: User? = nil
     @State private var showSheet: Bool = false
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
-        Button("Tap me") {
-            selectedUser = User()
-        }
-        .sheet(item: $selectedUser) { user in
+         
+        if horizontalSizeClass == .compact {
             VStack {
-                Button(user.name) {
-                    showSheet.toggle()
-                }
+                GroupView()
             }
-            .presentationDetents([.medium, .large])
+        } else {
+            HStack {
+                GroupView()
+            }
         }
-        .alert("Welcome", isPresented: $showSheet, presenting: selectedUser) { user in
-            Button(user.name) {}
-        }
+        
     }
 }
 
