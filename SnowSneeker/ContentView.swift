@@ -30,16 +30,13 @@ struct ContentView: View {
     
     var body: some View {
          
-        if horizontalSizeClass == .compact {
-            VStack {
-                GroupView()
-            }
-        } else {
-            HStack {
-                GroupView()
-            }
+        ViewThatFits {
+            Rectangle()
+                .frame(width: 500, height: 200)
+
+            Circle()
+                .frame(width: 200, height: 200)
         }
-        
     }
 }
 
