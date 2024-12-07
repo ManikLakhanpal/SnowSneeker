@@ -7,35 +7,25 @@
 
 import SwiftUI
 
-struct User: Identifiable {
-    var id = UUID()
-    var name = "Drake"
-}
-
-struct GroupView: View {
-    var body: some View {
-        Group {
-            Text("Manik Lakhanpal")
-            Text("Chandigarh")
-            Text("19")
-        }
-        .font(.largeTitle)
-    }
-}
-
 struct ContentView: View {
-    @State private var selectedUser: User? = nil
-    @State private var showSheet: Bool = false
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @State private var searchText = ""
+    let allNames = ["Subh", "Vina", "Melvin", "Stefanie"]
+    
+    var filteredNames: [String] {
+            if searchText.isEmpty {
+                allNames
+            } else {
+                allNames.filter { $0.localizedStandardContains(searchText) }
+            }
+    }
     
     var body: some View {
-         
-        ViewThatFits {
-            Rectangle()
-                .frame(width: 500, height: 200)
-
-            Circle()
-                .frame(width: 200, height: 200)
+        NavigationStack {
+            List(filteredNames, id: \.self) { name in
+                Text(name)
+            }
+            .searchable(text: $searchText, prompt: "Look for something")
+            .navigationTitle("Searching")
         }
     }
 }
