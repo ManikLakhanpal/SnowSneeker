@@ -24,7 +24,7 @@ struct ContentView: View {
             List(filteredNames, id: \.self) { name in
                 Text(name)
             }
-            .searchable(text: $searchText, prompt: "Look for something")
+            .searchable(text: $searchText, prompt: "Looking for something?")
             .navigationTitle("Searching")
         }
     }
