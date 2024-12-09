@@ -17,7 +17,9 @@ struct HighScoreView: View {
     @Environment(Player.self) var player // Will get the value from env to get player
     
     var body: some View {
-        Text("Your high score: \(player.highScore)")
+        @Bindable var player = player
+        
+        Stepper("High score: \(player.highScore)", value: $player.highScore)
     }
 }
 struct ContentView: View {
