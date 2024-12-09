@@ -22,6 +22,8 @@ struct HighScoreView: View {
 }
 struct ContentView: View {
     @State private var searchText = ""
+    @State private var player = Player()
+    
     let allNames = ["Subh", "Vina", "Melvin", "Stefanie"]
     
     var filteredNames: [String] {
@@ -34,11 +36,18 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
-            List(filteredNames, id: \.self) { name in
-                Text(name)
+            ZStack {
+                List(filteredNames, id: \.self) { name in
+                    Text(name)
+                    Color.gray
+                }
+                .searchable(text: $searchText, prompt: "Looking for something?")
+                .navigationTitle("Searching")
+                VStack {
+                    Text("Welcome")
+                    HighScoreView(player: player)
+                }
             }
-            .searchable(text: $searchText, prompt: "Looking for something?")
-            .navigationTitle("Searching")
         }
     }
 }
