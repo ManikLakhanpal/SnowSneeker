@@ -7,13 +7,26 @@
 
 import SwiftUI
 
+@Observable
+class Player {
+    var name = "Manik"
+    var highScore = 0
+}
+
+struct HighScoreView: View {
+    var player: Player
+    
+    var body: some View {
+        Text("Your high score: \(player.highScore)")
+    }
+}
 struct ContentView: View {
     @State private var searchText = ""
     let allNames = ["Subh", "Vina", "Melvin", "Stefanie"]
     
     var filteredNames: [String] {
             if searchText.isEmpty {
-                allNames
+                []
             } else {
                 allNames.filter { $0.localizedStandardContains(searchText) }
             }
