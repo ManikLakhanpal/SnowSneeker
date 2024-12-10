@@ -10,6 +10,9 @@ import SwiftUI
 struct ResortView: View {
     let resort: Resort
     
+    @State private var selectedFacility: Facility?
+    @State private var showingFacility = false
+    
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
 
@@ -42,8 +45,13 @@ struct ResortView: View {
                     Text("Facilities")
                         .font(.headline)
 
-                    Text(resort.facilities, format: .list(type: .and))
+                    HStack {
+                        ForEach(resort.facilityTypes) { facility in
+                            facility.icon
+                                .font(.title)
+                        }
                         .padding(.vertical)
+                    }
                 }
                 .padding(.horizontal)
             }
