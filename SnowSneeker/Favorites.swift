@@ -14,7 +14,7 @@ class Favorites {
     private let key = "Favorites"
     
     init() {
-        resorts = []
+        resorts = Set(UserDefaults.standard.stringArray(forKey: key) ?? [])
     }
     
     func contains(_ resort: Resort) -> Bool {
@@ -31,5 +31,7 @@ class Favorites {
         save()
     }
     
-    func save() {}
+    func save() {
+        UserDefaults.standard.set(Array(resorts), forKey: key)
+    }
 }
