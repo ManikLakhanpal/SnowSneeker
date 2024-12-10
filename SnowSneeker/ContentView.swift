@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     let resorts: [Resort] = Bundle.main.decode("resorts.json")
     @State private var searchText: String = ""
+    @State private var favorites = Favorites()
     
     var filteredResorts: [Resort] {
         if searchText.isEmpty {
@@ -53,6 +54,7 @@ struct ContentView: View {
         } detail: {
             WelcomeView()
         }
+        .environment(Favorites())
     }
 }
 

@@ -15,6 +15,7 @@ struct ResortView: View {
     
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
+    @Environment(Favorites.self) var favorites
 
     var body: some View {
         ScrollView {
