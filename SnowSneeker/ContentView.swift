@@ -38,11 +38,21 @@ struct ContentView: View {
                             )
 
                         VStack(alignment: .leading) {
-                            Text(resort.name)
-                                .font(.headline)
+                            HStack {
+                                Text(resort.name)
+                                
+                                if favorites.contains(resort) {
+                                    Image(systemName: "heart.fill")
+                                        .accessibilityLabel("This is a favorite resort")
+                                        .foregroundStyle(.red)
+                                }
+                            }
+                            .font(.headline)
+                            
                             Text("\(resort.runs) runs")
                                 .foregroundStyle(.secondary)
                         }
+                        
                     }
                 }
             }
@@ -54,7 +64,7 @@ struct ContentView: View {
         } detail: {
             WelcomeView()
         }
-        .environment(Favorites())
+        .environment(favorites)
     }
 }
 
